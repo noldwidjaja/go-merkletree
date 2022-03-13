@@ -32,6 +32,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"sort"
 	"strings"
 
 	"github.com/wealdtech/go-merkletree/blake2b"
@@ -161,7 +162,34 @@ func NewUsing(data [][]byte, hash HashType, salt []byte) (*MerkleTree, error) {
 	}
 	// Branches
 	for i := branchesLen - 1; i > 0; i-- {
-		nodes[i] = hash.Hash(append(nodes[i*2], nodes[i*2+1]...))
+		var (
+			first  []byte
+			second []byte
+		)
+
+		var (
+			bytes [][]byte
+			strs  []string
+		)
+
+		bytes = append(bytes, nodes[i*2])
+		bytes = append(bytes, nodes[i*2+1])
+
+		for _, b := range bytes {
+			strs = append(strs, string(b))
+		}
+
+		sort.Strings(strs)
+
+		first = []byte(strs[0])
+		second = []byte(strs[1])
+
+		nodes[i] = hash.Hash(
+			append(
+				first,
+				second...,
+			),
+		)
 	}
 
 	tree := &MerkleTree{
