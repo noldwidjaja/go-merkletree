@@ -35,7 +35,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/wealdtech/go-merkletree/blake2b"
+	"github.com/noldwidjaja/go-merkletree/blake2b"
 )
 
 // MerkleTree is the top-level structure for the merkle tree.

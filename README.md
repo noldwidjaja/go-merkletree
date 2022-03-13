@@ -1,7 +1,7 @@
 # go-merkletree
 
 [![License](https://img.shields.io/github/license/wealdtech/go-merkletree.svg)](LICENSE)
-[![GoDoc](https://godoc.org/github.com/wealdtech/go-merkletree?status.svg)](https://godoc.org/github.com/wealdtech/go-merkletree)
+[![GoDoc](https://godoc.org/github.com/noldwidjaja/go-merkletree?status.svg)](https://godoc.org/github.com/noldwidjaja/go-merkletree)
 [![Travis CI](https://img.shields.io/travis/wealdtech/go-merkletree.svg)](https://travis-ci.org/wealdtech/go-merkletree)
 [![codecov.io](https://img.shields.io/codecov/c/github/wealdtech/go-merkletree.svg)](https://codecov.io/github/wealdtech/go-merkletree?branch=master)
 
@@ -21,7 +21,7 @@ Go implementation of a Merkle tree.
 `go-merkletree` is a standard Go module which can be installed with:
 
 ```sh
-go get github.com/wealdtech/go-merkletree
+go get github.com/noldwidjaja/go-merkletree
 ```
 
 ## Usage

@@ -16,7 +16,7 @@ package merkletree
 import (
 	"bytes"
 
-	"github.com/wealdtech/go-merkletree/blake2b"
+	"github.com/noldwidjaja/go-merkletree/blake2b"
 )
 
 // Proof is a proof of a Merkle tree
