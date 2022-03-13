@@ -45,6 +45,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"sort"
 
 	"github.com/wealdtech/go-merkletree/blake2b"
 )
@@ -138,6 +139,10 @@ func New(data [][]byte) (*MerkleTree, error) {
 	return NewUsing(data, blake2b.New(), false)
 }
 
+type MerkleTreeOptions struct {
+	SortPairs bool
+}
+
 // NewUsing creates a new Merkle tree using the provided raw data and supplied hash type.  Salting is used if requested.
 // data must contain at least one element for it to be valid.
 func NewUsing(data [][]byte, hash HashType, salt bool) (*MerkleTree, error) {
@@ -164,7 +169,39 @@ func NewUsing(data [][]byte, hash HashType, salt bool) (*MerkleTree, error) {
 	}
 	// Branches
 	for i := branchesLen - 1; i > 0; i-- {
-		nodes[i] = hash.Hash(nodes[i*2], nodes[i*2+1])
+		var (
+			first  []byte
+			second []byte
+		)
+
+		// if sortPairs {
+		var (
+			bytes [][]byte
+			strs  []string
+		)
+
+		bytes = append(bytes, nodes[i*2])
+		bytes = append(bytes, nodes[i*2+1])
+
+		for _, b := range bytes {
+			strs = append(strs, string(b))
+		}
+
+		sort.Strings(strs)
+
+		first = []byte(strs[0])
+		second = []byte(strs[1])
+		// } else {
+		// 	first = nodes[i*2]
+		// 	second = nodes[i*2+1]
+		// }
+
+		nodes[i] = hash.Hash(
+			append(
+				first,
+				second...,
+			),
+		)
 	}
 
 	tree := &MerkleTree{
